@@ -7,6 +7,9 @@ import sys
 if script_loc not in sys.path:
     sys.path.append(script_loc)
 import chatscripts.gscript
+import chatscripts.yfscript
+import chatscripts.wikiscript
+import chatscripts.bookdeposcript
 
 
 app = Flask(__name__)
@@ -22,9 +25,33 @@ def gscript():
 
 @app.route('/yfscript')
 def yfscript():
-    print("yfscript")
+    args = request.args.get("params")
+    print("yfscript called with params: %s"%args)
+    args = args.replace("+", " ")
+    importlib.reload(chatscripts.yfscript)
+    print("args, "+args)
+    obj = chatscripts.yfscript.get_ticker_data(args)
+    return objToStr(obj)
 
+@app.route('/wikiscript')
+def wikiscript():
+    args = request.args.get("params")
+    print("wikiscript called with params: %s"%args)
+    args = args.replace("+", " ")
+    importlib.reload(chatscripts.wikiscript)
+    obj = chatscripts.wikiscript.wiki_search(args)
+    return objToStr(obj)
+
+@app.route('/bookdeposcript')
+def bdscript():
+    args = request.args.get("params")
+    print("bdscript called with params: %s"%args)
+    args = args.replace("+", " ")
+    importlib.reload(chatscripts.bookdeposcript)
+    obj = chatscripts.bookdeposcript.bookdepo_search(args)
+    return json.dumps(obj)
 
 @app.route('/')
 def hello_world():
     return "hello world"
+
