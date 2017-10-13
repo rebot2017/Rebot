@@ -11,7 +11,11 @@ import chatscripts.yfscript
 import chatscripts.wikiscript
 import chatscripts.bookdeposcript
 
-
+def objToStr(obj):
+    string = ""
+    for key in obj:
+        string+= key + ": " + obj[key] + '\n'
+    return string
 app = Flask(__name__)
 
 @app.route('/gscript')
