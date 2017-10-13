@@ -2,10 +2,11 @@ from flask import Flask
 from flask import request
 from config import script_loc
 import json
+import importlib
 import sys
 if script_loc not in sys.path:
     sys.path.append(script_loc)
-
+import chatscripts.gscript
 
 
 app = Flask(__name__)
@@ -15,8 +16,8 @@ def gscript():
     args = request.args.get("params")
     print("gscript called with params: %s"%args)
     args = args.replace("+", " ")
-    from chatscripts.gscript import gm_search
-    obj = gm_search(args)
+    importlib.reload(chatscripts.gscript)
+    obj = chatscripts.gscript.gm_search(args)
     return json.dumps(obj)
 
 @app.route('/yfscript')
