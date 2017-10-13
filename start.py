@@ -6,7 +6,6 @@ import sys
 if script_loc not in sys.path:
     sys.path.append(script_loc)
 
-from chatscripts.gscript import gm_search
 
 
 app = Flask(__name__)
@@ -16,9 +15,15 @@ def gscript():
     args = request.args.get("params")
     print("gscript called with params: %s"%args)
     args = args.replace("+", " ")
+    from chatscripts.gscript import gm_search
     obj = gm_search(args)
     return json.dumps(obj)
 
 @app.route('/yfscript')
 def yfscript():
     print("yfscript")
+
+
+@app.route('/')
+def hello_world():
+    return "hello world"
