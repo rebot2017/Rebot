@@ -25,7 +25,7 @@ def gscript():
     print("gscript called with params: %s"%args)
     args = args.replace("+", " ")
     importlib.reload(chatscripts.gscript)
-    obj = chatscripts.gscript.gm_search(args)
+    obj = chatscripts.gscript.call_api(args)
     return json.dumps(obj)
 
 @app.route('/yfscript')
@@ -35,8 +35,8 @@ def yfscript():
     args = args.replace("+", " ")
     importlib.reload(chatscripts.yfscript)
     print("args, "+args)
-    obj = chatscripts.yfscript.get_ticker_data(args)
-    return objToStr(obj)
+    obj = chatscripts.yfscript.call_api(args)
+    return json.dumps(obj)
 
 @app.route('/wikiscript')
 def wikiscript():
@@ -44,8 +44,8 @@ def wikiscript():
     print("wikiscript called with params: %s"%args)
     args = args.replace("+", " ")
     importlib.reload(chatscripts.wikiscript)
-    obj = chatscripts.wikiscript.wiki_search(args)
-    return objToStr(obj)
+    obj = chatscripts.wikiscript.call_api(args)
+    return json.dumps(obj)
 
 @app.route('/bookdeposcript')
 def bdscript():
@@ -53,7 +53,7 @@ def bdscript():
     print("bdscript called with params: %s"%args)
     args = args.replace("+", " ")
     importlib.reload(chatscripts.bookdeposcript)
-    obj = chatscripts.bookdeposcript.bookdepo_search(args)
+    obj = chatscripts.bookdeposcript.call_api(args)
     return json.dumps(obj)
 
 @app.route('/')
