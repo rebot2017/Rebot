@@ -10,6 +10,7 @@ import chatscripts.gscript
 import chatscripts.yfscript
 import chatscripts.wikiscript
 import chatscripts.bookdeposcript
+import chatscripts
 
 def objToStr(obj):
     string = ""
@@ -28,6 +29,17 @@ def gscript():
     obj = chatscripts.gscript.call_api(args)
     return json.dumps(obj)
 
+
+@app.route('/gscript/<int:team_id>')
+def team_gscript(team_id):
+    args = request.args.get("params")
+    print("gscript for team {%s} called with params: %s"%(team_id, args))
+    args = args.replace("+", " ")
+    mod = importlib.import_module("chatscripts.team%s_gscript"%team_id)
+    mod = importlib.reload(mod)
+    obj = mod.call_api(args)
+    return json.dumps(obj)
+
 @app.route('/yfscript')
 def yfscript():
     args = request.args.get("params")
@@ -36,6 +48,17 @@ def yfscript():
     importlib.reload(chatscripts.yfscript)
     print("args, "+args)
     obj = chatscripts.yfscript.call_api(args)
+    return json.dumps(obj)
+
+@app.route('/yfscript/<int:team_id>')
+def yfscript(team_id):
+    args = request.args.get("params")
+    print("yfscript called with params: %s"%args)
+    args = args.replace("+", " ")
+    mod = importlib.import_module("chatscripts.team%s_yfscript"%team_id)
+    importlib.reload(mod)
+    print("args, "+args)
+    obj = mod.call_api(args)
     return json.dumps(obj)
 
 @app.route('/wikiscript')
