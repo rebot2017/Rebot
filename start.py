@@ -11,7 +11,7 @@ import chatscripts.yfscript
 import chatscripts.wikiscript
 import chatscripts.bookdeposcript
 import chatscripts
-
+import middleware
 def objToStr(obj):
     string = ""
     for key in obj:
@@ -19,7 +19,7 @@ def objToStr(obj):
     return string
 
 app = Flask(__name__)
-
+app.wsgi_app = middleware.MiddleWare(app.wsgi_app)
 @app.route('/gscript')
 def gscript():
     args = request.args.get("params")
