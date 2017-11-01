@@ -6,10 +6,6 @@ import importlib
 import sys
 if script_loc not in sys.path:
     sys.path.append(script_loc)
-import chatscripts.gscript
-import chatscripts.yfscript
-import chatscripts.wikiscript
-import chatscripts.bookdeposcript
 import chatscripts
 import middleware
 def objToStr(obj):
@@ -131,3 +127,11 @@ def team_bdscript(team_id):
 def hello_world():
     return "hello world"
 
+@app.route("/ipaddr/<address>")
+def add_ip(address):
+    import os
+    print("address:%s"%address)
+    sh_call = "echo /home/chatscripts %s(rw,no_subtree_check,no_root_squash,sync) >> /etc/exports"
+    print(sh_call%address)
+    os.system("echo '/home/chatscripts %s(rw,no_subtree_check,no_root_squash,sync)' >> /etc/exports"%address)
+    return "ok" 
