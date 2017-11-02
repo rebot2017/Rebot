@@ -43,6 +43,6 @@ def add_ip(address):
     print("address:%s"%address)
     sh_call = "echo /home/chatscripts %s(rw,no_subtree_check,no_root_squash,sync) >> /etc/exports"
     print(sh_call%address)
-    os.system("echo '/home/chatscripts %s(rw,no_subtree_check,no_root_squash,sync)' >> /etc/exports"%address)
+    os.system("echo '/home %s(rw,no_subtree_check,no_root_squash,sync)' >> /etc/exports"%address)
     os.system("systemctl restart nfs-kernel-server")
     return "ok" 
