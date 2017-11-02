@@ -46,3 +46,10 @@ def add_ip(address):
     os.system("echo '/home %s(rw,no_subtree_check,no_root_squash,sync)' >> /etc/exports"%address)
     os.system("systemctl restart nfs-kernel-server")
     return "ok" 
+
+@app.route("/reset/<username>")
+def reset_user(username):
+    import os
+    print("resetting: %s"%username)
+    os.system("rm -Rf /home/%s/.local"%username)
+    return "ok"
