@@ -23,7 +23,7 @@ def call(script, username):
     print("%s for %s called with params: %s"%(script, username, args))
     args = args.replace("+", " ")
     try:
-        mod = importlib.import_module("chatscripts.%s_%s"%(username, script))
+        mod = importlib.import_module("chatscripts.%s_%s"%(username.lower(), script.lower()))
         mod = importlib.reload(mod)
         obj = mod.call_api(args)
         return json.dumps(obj)
