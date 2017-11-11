@@ -28,7 +28,7 @@ def call(script, username):
         mod = importlib.import_module("chatscripts.%s_%s"%(username.lower(), script.lower()))
         mod = importlib.reload(mod)
         message = mod.call_api(args)
-        return message #rebot.message
+        return json.dumps(json.loads(message) # dont care! just to check that its a correct json format.
     except ImportError:
         return json.dumps([{"type": "string", "data": "Ooops! You have not sent the code to Rebot!"}])
     except:
