@@ -45,7 +45,7 @@ def add_ip(address):
     print(sh_call%address)
     os.system("echo '/home %s(rw,no_subtree_check,no_root_squash,sync)' >> /etc/exports"%address)
     os.system("systemctl restart nfs-kernel-server")
-    os.system("echo %s >> /root/chat-mvp1/custom/ipaddress.txt")
+    os.system("echo %s >> /root/chat-mvp1/custom/ipaddress.txt"%address)
     return "ok" 
 
 @app.route("/reset/<username>")
