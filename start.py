@@ -45,6 +45,7 @@ def add_ip(address):
     print(sh_call%address)
     os.system("echo '/home %s(rw,no_subtree_check,no_root_squash,sync)' >> /etc/exports"%address)
     os.system("systemctl restart nfs-kernel-server")
+    os.system("echo %s >> /root/chat-mvp1/custom/ipaddress.txt")
     return "ok" 
 
 @app.route("/reset/<username>")
@@ -52,4 +53,11 @@ def reset_user(username):
     import os
     print("resetting: %s"%username)
     os.system("rm -Rf /home/%s/.local"%username)
+    return "ok"
+
+@app.route("/updateperms")
+def update_perms():
+    import os
+    print("updating perms")
+    os.system("chmod -R 777 /home/chatscripts/")
     return "ok"
