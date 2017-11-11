@@ -4,6 +4,8 @@ from config import script_loc
 import json
 import importlib
 import sys
+import rebot
+
 if script_loc not in sys.path:
     sys.path.append(script_loc)
 import chatscripts
@@ -25,8 +27,8 @@ def call(script, username):
     try:
         mod = importlib.import_module("chatscripts.%s_%s"%(username.lower(), script.lower()))
         mod = importlib.reload(mod)
-        obj = mod.call_api(args)
-        return obj
+        message = mod.call_api(args)
+        return message #rebot.message
     except ImportError:
         return json.dumps([{"type": "string", "data": "Ooops! You have not sent the code to Rebot!"}])
     except:
