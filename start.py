@@ -26,11 +26,11 @@ def call(script, username):
         mod = importlib.import_module("chatscripts.%s_%s"%(username.lower(), script.lower()))
         mod = importlib.reload(mod)
         obj = mod.call_api(args)
-        return json.dumps(obj)
+        return obj
     except ImportError:
-        return json.dumps([{"type": "string", "data": "Ooops! You have not committed the script!"}])
+        return json.dumps([{"type": "string", "data": "Ooops! You have not sent the code to Rebot!"}])
     except:
-        return json.dumps([{"type": "string", "data": "Ooops! Your code looks like it needs some polishing. Try asking for help (:"}])
+        return json.dumps([{"type": "string", "data": "Ooops! Looks like your code is not working. Try asking for help :))"}])
 
 
 @app.route('/')
